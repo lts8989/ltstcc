@@ -1,0 +1,14 @@
+version: '3'
+services:
+  db_server:
+    image: mysql:8.0.27
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - /Users/lts/360workspace/mysql8:/var/lib/mysql
+    ports:
+      - "3306:3306"
+  redis_server:
+    image: redis:alpine3.14
+    ports:
+      - "6379:6379"

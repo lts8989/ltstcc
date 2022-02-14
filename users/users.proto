@@ -1,0 +1,77 @@
+syntax = "proto3";
+option go_package = ".;users";
+service UsersInfo{
+  //添加用户
+  rpc createUsers(Users) returns(UsersId);
+
+  //批量添加用户
+  rpc batchCreateUsers(BatchCreateUsersParams) returns(batchCreateUsersCount);
+
+  //用户充值
+  rpc recharge(RechargeParams) returns(UsersSuccess);
+
+  //冻结余额try
+  rpc frozenAmountTry(FrozenTryParams) returns(FrozenTryResp);
+
+  //冻结余额cancel
+  rpc frozenAmountCancel(FrozenCancelParams) returns(FrozenCancelResp);
+
+  //冻结余额commit
+  rpc frozenAmountCommit(FrozenCommitParams) returns(FrozenCommitResp);
+
+}
+
+message Users{
+  int32 id = 1;
+  string username = 2;
+  int32 balance = 3;
+  int32 frozen_amount = 4;
+}
+
+message UsersId{
+  int32 value = 1;
+}
+
+message BatchCreateUsersParams{
+  int32 count = 1;
+}
+
+message batchCreateUsersCount{
+  int64 count = 1;
+}
+
+message RechargeParams{
+  int32 user_id = 1;
+  int32 recharge_money = 2;
+}
+
+message UsersSuccess{
+  int32 value = 1 ;
+}
+
+message FrozenTryParams{
+  int32 user_id = 1;
+  int32 frozen_amount = 2;
+}
+
+message FrozenTryResp{
+  int32 users_detail_id = 1;
+  int32 user_balance = 2;
+  int32 user_frozen_amount = 3;
+}
+
+message FrozenCancelParams{
+  int32 users_detail_id = 1;
+}
+
+message FrozenCancelResp{
+  int32 value = 1;
+}
+
+message FrozenCommitParams{
+  int32 users_detail_id = 1;
+}
+
+message FrozenCommitResp{
+  int32 users_detail_id = 1;
+}

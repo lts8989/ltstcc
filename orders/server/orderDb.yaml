@@ -1,0 +1,5 @@
+host: db_server
+port: 3306
+dbname: lts_orders
+username: root
+password: 123456

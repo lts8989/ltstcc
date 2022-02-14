@@ -1,0 +1,5 @@
+host: 10.16.155.5
+port: 13306
+dbname: lts_users
+username: root
+password: 123456

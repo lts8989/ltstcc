@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ltstcc-pod
+spec:
+  selector:
+    matchLabels:
+      app: ltstcc
+  template:
+    metadata:
+      labels:
+        app: ltstcc
+    spec:
+      containers:
+        - name: db-server
+          image: mysql:8.0.27
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-data
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "123456"
+        - name: users-server
+          image: ltstccimg:latest
+          command: [ "go","run","usersServer.go" ]
+          workingDir: /usr/src/myapp/users/server
+          volumeMounts:
+            - mountPath: /usr/src/myapp
+              name: src-dir
+            - mountPath: /go/pkg/mod
+              name: go-pkg-dir
+          ports:
+            - containerPort: 8080
+        - name: ltstcc
+          image: ltstccimg:latest
+          command: [ "go","run","main.go" ]
+          workingDir: /usr/src/myapp
+          volumeMounts:
+            - mountPath: /usr/src/myapp
+              name: src-dir
+            - mountPath: /go/pkg/mod
+              name: go-pkg-dir
+          ports:
+            - containerPort: 8081
+      volumes:
+        - name: mysql-data
+          hostPath:
+            path: /Users/lts/360workspace/mysql8
+            type: DirectoryOrCreate
+        - name: src-dir
+          hostPath:
+            path: /Users/lts/360workspace/ltstcc
+            type: DirectoryOrCreate
+        - name: go-pkg-dir
+          hostPath:
+            path: /Users/lts/360workspace/ltstccmod
+            type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ltstcc-svc
+spec:
+  type: NodePort
+  selector:
+    app: ltstcc
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+
