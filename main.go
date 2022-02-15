@@ -125,10 +125,13 @@ func createOrder(c *gin.Context) {
 		return
 	}
 	defer unlockUser(int32(userId))
-	ch := make(chan aaa)
-	frozenCommitParams := &users.FrozenCommitParams{UsersDetailId: frozenRes.UsersDetailId}
-	ch <- aaa{utility.GetUsersGrpcClient().FrozenAmountCommit(c, frozenCommitParams)}
+	//ch := make(chan aaa)
+	//frozenCommitParams := &users.FrozenCommitParams{UsersDetailId: frozenRes.UsersDetailId}
+	//ch <- aaa{utility.GetUsersGrpcClient().FrozenAmountCommit(c, frozenCommitParams)}
 	//utility.GetUsersGrpcClient().FrozenAmountCancel(c,)
+	a := 1
+	a = 2
+	fmt.Println(a)
 
 	//endregion
 

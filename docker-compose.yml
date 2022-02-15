@@ -1,32 +1,29 @@
 version: '3'
 services:
   users_server:
-    image: golang:1.17-alpine
+    image: golang:alpine3.15
     command: go run usersServer.go
     volumes:
-      - /Users/lts/360workspace/ltstcc:/usr/src/myapp
-      - /Users/lts/360workspace/ltstccmod:/go/pkg/mod
+      - $PWD:/usr/src/myapp
+      - $PWD/ltstccmod:/go/pkg/mod
     working_dir: /usr/src/myapp/users/server
   orders_server:
-    image: golang:1.17-alpine
+    image: golang:alpine3.15
     command: go run ordersServer.go
     volumes:
-      - /Users/lts/360workspace/ltstcc:/usr/src/myapp
-      - /Users/lts/360workspace/ltstccmod:/go/pkg/mod
+      - $PWD:/usr/src/myapp
     working_dir: /usr/src/myapp/orders/server
   goods_server:
-    image: golang:1.17-alpine
+    image: golang:alpine3.15
     command: go run goodsServer.go
     volumes:
-      - /Users/lts/360workspace/ltstcc:/usr/src/myapp
-      - /Users/lts/360workspace/ltstccmod:/go/pkg/mod
+      - $PWD:/usr/src/myapp
     working_dir: /usr/src/myapp/goods/server
   ltstcc:
-    image: golang:1.17-alpine
+    image: golang:alpine3.15
     command: go run main.go
     volumes:
-      - /Users/lts/360workspace/ltstcc:/usr/src/myapp
-      - /Users/lts/360workspace/ltstccmod:/go/pkg/mod
+      - $PWD:/usr/src/myapp
     working_dir: /usr/src/myapp
     ports:
       - "8000:8000"
