@@ -5,7 +5,6 @@ services:
     command: go run usersServer.go
     volumes:
       - $PWD:/usr/src/myapp
-      - $PWD/ltstccmod:/go/pkg/mod
     working_dir: /usr/src/myapp/users/server
   orders_server:
     image: golang:alpine3.15
