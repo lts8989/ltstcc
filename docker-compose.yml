@@ -1,25 +1,37 @@
 version: '3'
 services:
   users_server:
-    image: golang:alpine3.15
+    image: lts/golang
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: go run usersServer.go
     volumes:
       - $PWD:/usr/src/myapp
     working_dir: /usr/src/myapp/users/server
   orders_server:
-    image: golang:alpine3.15
+    image: lts/golang
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: go run ordersServer.go
     volumes:
       - $PWD:/usr/src/myapp
     working_dir: /usr/src/myapp/orders/server
   goods_server:
-    image: golang:alpine3.15
+    image: lts/golang
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: go run goodsServer.go
     volumes:
       - $PWD:/usr/src/myapp
     working_dir: /usr/src/myapp/goods/server
   ltstcc:
-    image: golang:alpine3.15
+    image: lts/golang
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: go run main.go
     volumes:
       - $PWD:/usr/src/myapp

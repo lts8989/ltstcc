@@ -17,6 +17,16 @@ type server struct {
 	orders.UnimplementedOrdersInfoServer
 }
 
+func (s server) AutoMigrate(ctx context.Context, req *orders.CreateOrderParams) (resp *orders.OrdersSuccess, err error) {
+	fmt.Println("orders__AutoMigrate")
+	resp = &orders.OrdersSuccess{}
+	utility.GetOrdersDb().Debug().Set("gorm:table_options", "comment '订单表'").AutoMigrate(&model.Orders{})
+	utility.GetOrdersDb().Debug().Set("gorm:table_options", "comment '订单操作表'").AutoMigrate(&model.OrdersDetail{})
+
+	resp.Value = 1
+	return
+}
+
 func (s *server) CreateOrderCancel(ctx context.Context, req *orders.CreateOrderCancelParams) (resp *orders.OrdersSuccess, err error) {
 	resp = &orders.OrdersSuccess{}
 

@@ -18,6 +18,14 @@ type server struct {
 	goods.UnimplementedGoodsInfoServer
 }
 
+func (s server) AutoMigrate(ctx context.Context, req *goods.GoodsId) (resp *goods.GoodsSuccess, err error) {
+	fmt.Println("goods__AutoMigrate")
+	resp = &goods.GoodsSuccess{}
+	utility.GetGoodsDb().Debug().Set("gorm:table_options", "comment '商品信息表'").AutoMigrate(&model.Goods{})
+	resp.Value = 1
+	return
+}
+
 func (s *server) GetGoodsInfo(ctx context.Context, req *goods.GoodsId) (resp *goods.Goods, err error) {
 	resp = &goods.Goods{}
 	_goods, err := getGoodInfo(req.Value)

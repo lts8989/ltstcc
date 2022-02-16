@@ -9,6 +9,8 @@ service GoodsInfo{
 
   //冻结商品数量取消
   rpc goodsFrozenCancel(GoodsFrozenCancelParams)returns(GoodsSuccess);
+
+  rpc autoMigrate(GoodsId) returns(GoodsSuccess);
 }
 
 message GoodsId{

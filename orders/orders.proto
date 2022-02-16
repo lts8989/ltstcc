@@ -7,6 +7,8 @@ service OrdersInfo{
   //下单取消
   rpc createOrderCancel(CreateOrderCancelParams) returns(OrdersSuccess);
 
+  rpc autoMigrate(CreateOrderParams) returns(OrdersSuccess);
+
 }
 
 message CreateOrderParams{

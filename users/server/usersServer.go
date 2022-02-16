@@ -160,6 +160,18 @@ func (s *server) FrozenAmount(ctx context.Context, req *users.FrozenTryParams) (
 	return
 }
 
+func (s server) AutoMigrate(ctx context.Context, req *users.Users) (resp *users.UsersSuccess, err error) {
+	fmt.Println("users__AutoMigrate")
+	resp = &users.UsersSuccess{}
+	utility.GetUsersDb().Debug().Set("gorm:table_options", "comment '用户表'").AutoMigrate(&model.Users{})
+	fmt.Println("users__AutoMigrate11")
+	utility.GetUsersDb().Debug().Set("gorm:table_options", "comment '用户余额流水表'").AutoMigrate(&model.UsersDetail{})
+	fmt.Println("users__AutoMigrate33")
+
+	resp.Value = 1
+	return
+}
+
 func (s server) FrozenAmountCancel(ctx context.Context, req *users.FrozenCancelParams) (resp *users.FrozenCancelResp, err error) {
 	resp = &users.FrozenCancelResp{}
 

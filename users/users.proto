@@ -19,6 +19,8 @@ service UsersInfo{
   //冻结余额commit
   rpc frozenAmountCommit(FrozenCommitParams) returns(FrozenCommitResp);
 
+  rpc autoMigrate(Users) returns(UsersSuccess);
+
 }
 
 message Users{

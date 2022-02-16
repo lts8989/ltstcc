@@ -45,6 +45,8 @@ func main() {
 	// 用户下单
 	r.GET("/createorder", createOrder)
 
+	r.GET("/automigrate", autoMigrate)
+
 	// 3.监听端口，默认在8080
 	// Run("里面不指定端口号默认为8080")
 	r.Run(":8000")
@@ -61,6 +63,19 @@ func createUser(c *gin.Context) {
 	fmt.Printf("new userId:%d\n", userId.Value)
 
 	c.String(http.StatusOK, "createuser success!")
+}
+
+func autoMigrate(c *gin.Context) {
+	u := &users.Users{Username: "aaaa"}
+	utility.GetUsersGrpcClient().AutoMigrate(c, u)
+
+	gi := &goods.GoodsId{}
+	utility.GetGoodsGrpcClient().AutoMigrate(c, gi)
+
+	createOrderParams := &orders.CreateOrderParams{}
+	utility.GetOrdersGrpcClient().AutoMigrate(c, createOrderParams)
+
+	c.String(http.StatusOK, "AutoMigrate success!")
 }
 
 func batchcreateuser(c *gin.Context) {
