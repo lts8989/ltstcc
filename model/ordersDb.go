@@ -10,8 +10,8 @@ type Orders struct {
 	GoodsId      int32     `gorm:"not null;column:goods_id;type:int unsigned comment '商品id'"`
 	GoodsCount   int32     `gorm:"not null;column:goods_count;type:int unsigned comment '购买商品数量'"`
 	ChangeAmount int32     `gorm:"not null;column:change_amount;type:int unsigned comment '订单金额'"`
-	Mtime        time.Time `gorm:"type:datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '修改时间'"`
-	Ctime        time.Time `gorm:"type:datetime default CURRENT_TIMESTAMP not null comment '创建时间'"`
+	Mtime        time.Time `gorm:"default:CURRENT_TIMESTAMP;type:datetime not null on update CURRENT_TIMESTAMP comment '修改时间'"`
+	Ctime        time.Time `gorm:"default:CURRENT_TIMESTAMP;type:datetime not null comment '创建时间'"`
 }
 
 type OrdersDetail struct {
@@ -21,6 +21,6 @@ type OrdersDetail struct {
 	UserId           int32     `gorm:"not null;column:user_id;type:int unsigned comment '用户id'"`
 	UserBalance      int32     `gorm:"not null;type:int unsigned default '0' comment '用户余额'"`
 	UserFrozenAmount int32     `gorm:"not null;type:int unsigned default '0' comment '用户冻结金额'"`
-	Mtime            time.Time `gorm:"type:datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '修改时间'"`
-	Ctime            time.Time `gorm:"type:datetime default CURRENT_TIMESTAMP not null comment '创建时间'"`
+	Mtime            time.Time `gorm:"default:CURRENT_TIMESTAMP;type:datetime not null on update CURRENT_TIMESTAMP comment '修改时间'"`
+	Ctime            time.Time `gorm:"default:CURRENT_TIMESTAMP;type:datetime not null comment '创建时间'"`
 }

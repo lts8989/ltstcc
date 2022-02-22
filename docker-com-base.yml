@@ -4,6 +4,7 @@ services:
     image: mysql:8.0.27
     environment:
       MYSQL_ROOT_PASSWORD: 123456
+      TZ: Asia/Shanghai
     volumes:
       - $PWD/mysql8:/var/lib/mysql
   redis_server:
