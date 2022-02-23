@@ -5,7 +5,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
+
 	"google.golang.org/grpc"
 	"log"
 	"ltstcc/model"
@@ -26,7 +27,7 @@ func (s *server) CreateUsers(ctx context.Context, req *users.Users) (resp *users
 		Balance:      req.Balance,
 		FrozenAmount: req.FrozenAmount,
 	}
-	err = utility.GetUsersDb().Debug().Create(&users).Error
+	err = utility.GetUsersDb().Create(&users).Error
 	if err != nil {
 		fmt.Println("创建失败")
 	}

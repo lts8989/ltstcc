@@ -3,12 +3,15 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
+	"io"
 	"ltstcc/goods"
 	"ltstcc/orders"
 	"ltstcc/users"
 	"ltstcc/utility"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 func init() {
@@ -26,6 +29,17 @@ type aaa struct {
 //go:generate protoc --go_out=./users/ ./users/users.proto
 //go:generate protoc --go-grpc_out=./users/ ./users/users.proto
 func main() {
+	gin.DisableConsoleColor()
+	path := "gin"
+	writer, _ := rotatelogs.New(
+		path+"%Y%m%d%H.log",
+		rotatelogs.WithLinkName(path),
+		rotatelogs.WithMaxAge(time.Duration(1800)*time.Second),
+
+		//这里设置1分钟产生一个日志文件
+		rotatelogs.WithRotationTime(time.Duration(360)*time.Second),
+	)
+	gin.DefaultWriter = io.MultiWriter(writer)
 	// 1.创建路由
 	r := gin.Default()
 	// 2.绑定路由规则，执行的函数

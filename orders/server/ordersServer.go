@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"google.golang.org/grpc"
+	"gorm.io/gorm"
 	"log"
 	"ltstcc/model"
 	"ltstcc/orders"
